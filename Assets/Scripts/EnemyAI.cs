@@ -5,11 +5,13 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform target;
     [SerializeField] private float chaseRange = 5f;
-    private float _distanceToEnemy = Mathf.Infinity;
+    private float _distanceToTarget = Mathf.Infinity;
+    private bool _isProvoked = false;
 
     private NavMeshAgent _navMeshAgent;
+
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -17,19 +19,56 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (PlayerInRange())
+        _distanceToTarget = Vector3.Distance(target.position, transform.position);
+        if (_isProvoked)
         {
-            NavigateToPlayer();
+            EngageTarget();
+        }
+        else if (PlayerInRange(_distanceToTarget))
+        {
+            _isProvoked = true;
         }
     }
 
-    private bool PlayerInRange()
+    private void EngageTarget()
     {
-        return Vector3.Distance(player.position, transform.position) <= chaseRange;
+        if (!InAttackRange())
+        {
+            ChaseTarget();
+        }
+
+        if (InAttackRange())
+        {
+            AttackTarget();
+        }
     }
 
-    private void NavigateToPlayer()
+    private void AttackTarget()
     {
-        _navMeshAgent.SetDestination(player.position);
+        print($"{name} attacking {target} at distance {_distanceToTarget}");
+    }
+
+    private bool InAttackRange()
+    {
+        // seemed to need the .5 fudge factor, since the enemy seems to be
+        //   stopping just outside the stopping distance.
+        return _distanceToTarget <= _navMeshAgent.stoppingDistance + .5;
+    }
+
+    private bool PlayerInRange(float distanceToTarget)
+    {
+        return distanceToTarget <= chaseRange;
+    }
+
+    private void ChaseTarget()
+    {
+        _navMeshAgent.SetDestination(target.position);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the chase radius when selected
+        Gizmos.color = new Color(1, 1, 0, 0.75F);
+        Gizmos.DrawSphere(transform.position, chaseRange);
     }
 }
