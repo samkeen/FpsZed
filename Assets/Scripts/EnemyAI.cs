@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
     private bool _isProvoked = false;
 
     private NavMeshAgent _navMeshAgent;
+    private static readonly int Attack = Animator.StringToHash("attack");
+    private static readonly int Move = Animator.StringToHash("move");
 
     void Start()
     {
@@ -45,7 +47,8 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackTarget()
     {
-        print($"{name} attacking {target} at distance {_distanceToTarget}");
+        GetComponent<Animator>().SetBool(Attack, true);
+        // print($"{name} attacking {target} at distance {_distanceToTarget}");
     }
 
     private bool InAttackRange()
@@ -62,7 +65,11 @@ public class EnemyAI : MonoBehaviour
 
     private void ChaseTarget()
     {
-        _navMeshAgent.SetDestination(target.position);
+        var animator = GetComponent<Animator>();
+        // start with attack/false in case we run out of attack range of the enemy
+        animator.SetBool(Attack, false);
+        animator.SetTrigger(Move);
+        var result = _navMeshAgent.SetDestination(target.position);
     }
 
     void OnDrawGizmosSelected()

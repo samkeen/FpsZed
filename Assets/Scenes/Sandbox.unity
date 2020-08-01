@@ -2495,15 +2495,35 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1051961358}
+    - target: {fileID: 185505290966892676, guid: f70d5401def6d4266beb56953e6232f6,
+        type: 3}
+      propertyPath: chaseRange
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 185505290966892677, guid: f70d5401def6d4266beb56953e6232f6,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 185505290966892679, guid: f70d5401def6d4266beb56953e6232f6,
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067911875462463959, guid: f70d5401def6d4266beb56953e6232f6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821778914844500973, guid: f70d5401def6d4266beb56953e6232f6,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835915135742004930, guid: f70d5401def6d4266beb56953e6232f6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f70d5401def6d4266beb56953e6232f6, type: 3}
