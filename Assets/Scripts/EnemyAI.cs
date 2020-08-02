@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private float chaseRange = 5f;
+    [SerializeField] private float turnSpeed = 5f;
     private float _distanceToTarget = Mathf.Infinity;
     private bool _isProvoked = false;
 
@@ -34,6 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     private void EngageTarget()
     {
+        FaceTarget();
         if (!InAttackRange())
         {
             ChaseTarget();
@@ -70,6 +72,18 @@ public class EnemyAI : MonoBehaviour
         animator.SetBool(Attack, false);
         animator.SetTrigger(Move);
         var result = _navMeshAgent.SetDestination(target.position);
+    }
+
+    private void FaceTarget()
+    {
+        // https://docs.unity3d.com/ScriptReference/Vector3-normalized.html, 
+        // ensure magnitude is 1 (we only want to affect direction not magnitude)
+        var direction = (target.position - transform.position).normalized;
+        // y = 0; we are not looking up/down
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        // https://docs.unity3d.com/ScriptReference/Vector3.Slerp.html
+        // Spherically interpolates between two vectors. Interpolates between a and b by amount t. 
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
     }
 
     void OnDrawGizmosSelected()
