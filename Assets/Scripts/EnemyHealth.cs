@@ -13,5 +13,6 @@ public class EnemyHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        BroadcastMessage("OnDamageTaken");
     }
 }

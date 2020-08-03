@@ -33,6 +33,11 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public void OnDamageTaken()
+    {
+        _isProvoked = true;
+    }
+
     private void EngageTarget()
     {
         FaceTarget();
@@ -90,6 +95,6 @@ public class EnemyAI : MonoBehaviour
     {
         // Display the chase radius when selected
         Gizmos.color = new Color(1, 1, 0, 0.75F);
-        Gizmos.DrawSphere(transform.position, chaseRange);
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
     }
 }
