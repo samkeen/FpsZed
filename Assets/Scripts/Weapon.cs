@@ -11,19 +11,30 @@ public class Weapon : MonoBehaviour
     [SerializeField] private ParticleSystem muzzelFlash;
     // we use GameObject rather than ParticleSystem so we can intanciate and destroy this object
     [SerializeField] private GameObject hitEffect;
+    [SerializeField] private Ammo ammoSlot;
+    [SerializeField] private float timeBetweenShots = .5f;
+    private bool canShoot = true;
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && canShoot)
         {
-            Shoot();
+            StartCoroutine(Shoot());
         }
     }
 
-    private void Shoot()
+    private IEnumerator Shoot()
     {
-        PlayMuzzelFlash();
-        AnalyzeRayTrace();
+        canShoot = false;
+        if (ammoSlot.GetAmmoAmount()>=1)
+        {
+            PlayMuzzelFlash();
+            AnalyzeRayTrace();
+            ammoSlot.ReduceAmmoAmount();
+        }
+        // return control to thread, return here in `timeBetweenShots` seconds
+        yield return new WaitForSeconds(timeBetweenShots);
+        canShoot = true;
     }
 
     private void PlayMuzzelFlash()
