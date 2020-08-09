@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -12,8 +13,14 @@ public class Weapon : MonoBehaviour
     // we use GameObject rather than ParticleSystem so we can intanciate and destroy this object
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private Ammo ammoSlot;
-    [SerializeField] private float timeBetweenShots = .5f;
+    [SerializeField] private AmmoType ammoType;
+    [SerializeField] private float timeBetweenShots = 0.5f;
     private bool canShoot = true;
+
+    private void OnEnable()
+    {
+        canShoot = true;
+    }
 
     void Update()
     {
@@ -26,11 +33,11 @@ public class Weapon : MonoBehaviour
     private IEnumerator Shoot()
     {
         canShoot = false;
-        if (ammoSlot.GetAmmoAmount()>=1)
+        if (ammoSlot.GetAmmoAmount(ammoType)>=1)
         {
             PlayMuzzelFlash();
             AnalyzeRayTrace();
-            ammoSlot.ReduceAmmoAmount();
+            ammoSlot.ReduceAmmoAmount(ammoType);
         }
         // return control to thread, return here in `timeBetweenShots` seconds
         yield return new WaitForSeconds(timeBetweenShots);
@@ -44,16 +51,14 @@ public class Weapon : MonoBehaviour
 
     private void AnalyzeRayTrace()
     {
-        var fpTransform = FPCamera.transform;
-        Physics.Raycast(fpTransform.position, fpTransform.forward, out var hit, range);
-        hit.transform.GetComponent<EnemyHealth>();
-        var enemyHealth = hit.transform.GetComponent<EnemyHealth>();
-        if (enemyHealth)
+        RaycastHit hit;
+        if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, range))
         {
-            enemyHealth.TakeDamage(damagePerHit);
+            CreateHitImpact(hit);
+            EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
+            if (target == null) return;
+            target.TakeDamage(damagePerHit);
         }
-
-        CreateHitImpact(hit);
     }
 
     private void CreateHitImpact(RaycastHit hitInfo)

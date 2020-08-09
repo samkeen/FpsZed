@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 4605138725861208}
   - component: {fileID: 33647878174852184}
   - component: {fileID: 23725505087163480}
+  - component: {fileID: 6675303410091764688}
   m_Layer: 0
   m_Name: Enfield
   m_TagString: Untagged
@@ -430,3 +431,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6675303410091764688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866922139816864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f491d686fd4b4950807780bde35928e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FPCamera: {fileID: 0}
+  range: 75
+  damagePerHit: 60
+  muzzelFlash: {fileID: 964030614290785443, guid: 486b24a6f943042719b907d37ab67540,
+    type: 3}
+  hitEffect: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
+  ammoSlot: {fileID: 0}
+  ammoType: 2
+  timeBetweenShots: 2.5

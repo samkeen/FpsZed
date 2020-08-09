@@ -247,8 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9ee3e57c9bf4da8b35405033876d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsCamera: {fileID: 0}
-  fpsController: {fileID: 0}
+  fpsCamera: {fileID: 2000000}
+  fpsController: {fileID: 11400004}
   zoomedOutFov: 60
   zoomedInFov: 20
   zoomedOutMouseSensitivity: 2
@@ -361,7 +361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea1c937291e34ddfa13a722f96a756e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoAmount: 10
+  ammoSlots:
+  - ammoType: 0
+    ammoAmount: 10
+  - ammoType: 1
+    ammoAmount: 5
+  - ammoType: 2
+    ammoAmount: 3
 --- !u!114 &3635623985394410261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +405,7 @@ MonoBehaviour:
     type: 3}
   hitEffect: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
   ammoSlot: {fileID: 4679106142192344658}
+  ammoType: 0
   timeBetweenShots: 2.5
 --- !u!1 &6294166084300377240
 GameObject:
@@ -409,6 +416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7219383534768926843}
+  - component: {fileID: 4857568362522497210}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -433,6 +441,19 @@ Transform:
   m_Father: {fileID: 400000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4857568362522497210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294166084300377240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5542d6f86b55347b1ab8c28a062dafa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: 1
 --- !u!1001 &4111872159343337560
 PrefabInstance:
   m_ObjectHideFlags: 0

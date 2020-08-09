@@ -346,6 +346,8 @@ MonoBehaviour:
   muzzelFlash: {fileID: 3054729583150253845}
   hitEffect: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
   ammoSlot: {fileID: 0}
+  ammoType: 1
+  timeBetweenShots: 0.5
 --- !u!1 &3763259286486735254
 GameObject:
   m_ObjectHideFlags: 0
