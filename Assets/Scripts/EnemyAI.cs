@@ -15,13 +15,21 @@ public class EnemyAI : MonoBehaviour
     private static readonly int Attack = Animator.StringToHash("attack");
     private static readonly int Move = Animator.StringToHash("move");
 
+    private EnemyHealth _health;
+
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _health = GetComponent<EnemyHealth>();
     }
 
     void Update()
     {
+        if (_health.IsDead())
+        {
+            enabled = false;
+            _navMeshAgent.enabled = false;
+        }
         _distanceToTarget = Vector3.Distance(target.position, transform.position);
         if (_isProvoked)
         {
