@@ -10,7 +10,7 @@ public class AmmoPickup : MonoBehaviour
     [SerializeField] private AmmoType ammoType;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             FindObjectOfType<Ammo>().IncreaseAmmoAmount(ammoType, ammoAmount);
             Destroy(gameObject);
