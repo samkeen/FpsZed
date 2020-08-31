@@ -4,36 +4,49 @@ using UnityEngine;
 
 public class FlashLightSystem : MonoBehaviour
 {
+    [SerializeField] float lightDecay = .1f;
+    [SerializeField] float angleDecay = 1f;
+    [SerializeField] float minimumAngle = 40f;
 
-    [SerializeField] private float lightDecay = .1f;
-    [SerializeField] private float angleDecay = 1f;
-    [SerializeField] private float minAngle = 40f;
+    Light myLight;
 
-    private Light _myLight;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        _myLight = GetComponent<Light>();
-        
+        myLight = GetComponent<Light>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        DecreaseLightIntensity();
         DecreaseLightAngle();
+        DecreaseLightIntensity();
+    }
+
+    public void RestoreLightAngle(float restoreAngle)
+    {
+        Debug.Log("RestoreLightAngle");
+        myLight.spotAngle = restoreAngle;
+    }
+
+    public void AddLightIntensity(float intensityAmount)
+    {
+        Debug.Log("AddLightIntensity");
+        myLight.intensity += intensityAmount;
     }
 
     private void DecreaseLightAngle()
     {
-        if (_myLight.spotAngle>=minAngle)
+        if (myLight.spotAngle <= minimumAngle)
         {
-            _myLight.spotAngle -= _myLight.spotAngle * Time.deltaTime;
+            return;
+        }
+        else
+        {
+            myLight.spotAngle -= angleDecay * Time.deltaTime;
         }
     }
 
     private void DecreaseLightIntensity()
     {
-        _myLight.intensity -= _myLight.intensity * Time.deltaTime;
+        myLight.intensity -= lightDecay * Time.deltaTime;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Transform target;
     [SerializeField] private float chaseRange = 5f;
     [SerializeField] private float turnSpeed = 5f;
     private float _distanceToTarget = Mathf.Infinity;
@@ -16,11 +15,13 @@ public class EnemyAI : MonoBehaviour
     private static readonly int Move = Animator.StringToHash("move");
 
     private EnemyHealth _health;
+    private Transform _target;
 
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _health = GetComponent<EnemyHealth>();
+        _target = FindObjectOfType<PlayerHealth>().transform;
     }
 
     void Update()
@@ -30,7 +31,7 @@ public class EnemyAI : MonoBehaviour
             enabled = false;
             _navMeshAgent.enabled = false;
         }
-        _distanceToTarget = Vector3.Distance(target.position, transform.position);
+        _distanceToTarget = Vector3.Distance(_target.position, transform.position);
         if (_isProvoked)
         {
             EngageTarget();
@@ -84,14 +85,14 @@ public class EnemyAI : MonoBehaviour
         // start with attack/false in case we run out of attack range of the enemy
         animator.SetBool(Attack, false);
         animator.SetTrigger(Move);
-        var result = _navMeshAgent.SetDestination(target.position);
+        var result = _navMeshAgent.SetDestination(_target.position);
     }
 
     private void FaceTarget()
     {
         // https://docs.unity3d.com/ScriptReference/Vector3-normalized.html, 
         // ensure magnitude is 1 (we only want to affect direction not magnitude)
-        var direction = (target.position - transform.position).normalized;
+        var direction = (_target.position - transform.position).normalized;
         // y = 0; we are not looking up/down
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         // https://docs.unity3d.com/ScriptReference/Vector3.Slerp.html
