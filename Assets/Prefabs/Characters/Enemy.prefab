@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2fa4110941e4f74920cd89230b093f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 100
+  hitPoints: 60
 --- !u!23 &185505290966892675
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e8d5fd6420e48ada9e8e9eca7b0f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   chaseRange: 15
   turnSpeed: 5
 --- !u!136 &185505290966892674
@@ -172,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e9c284f16794622913d5d0ca10a5e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
+  damage: 30
 --- !u!1001 &2586784277121038297
 PrefabInstance:
   m_ObjectHideFlags: 0
