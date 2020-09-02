@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e8d5fd6420e48ada9e8e9eca7b0f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRange: 15
+  chaseRange: 10
   turnSpeed: 5
 --- !u!136 &185505290966892674
 CapsuleCollider:
